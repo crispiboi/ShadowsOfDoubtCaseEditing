@@ -4,7 +4,7 @@
 
 ### Case Editor Tool
 
-Cases can be created and modified using [piepieonline's web based tool](https://www.piepieonline.com/ShadowsOfDoubt-CaseEditor/) using Google Chrome browser.
+Cases can be created and modified using [piepieonline's web based tool](https://www.piepieonline.com/ShadowsOfDoubt-CaseEditor/) using Google Chrome browser or using this [Windows tool by Serenity](https://github.com/ShaneeexD/Case-Generator)
 
 ### DDS Editor Tool
 
