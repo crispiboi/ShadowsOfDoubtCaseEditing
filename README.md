@@ -12,7 +12,7 @@ Evidence, dialogue, vMails, and some other things can be modified using [Shadows
 
 ## How to
 
-### Make a basic custom piece of evidence 
+### Make a basic custom piece of DDS evidence 
 
 This evidence will spawn in the world as a crumpled pieces of paper. 
 1. Open the DDS Editor. In a new DDS bundle, create a new tree for a document. ![](/assets/image/Shadows_of_Doubt_DDS_Editor_newtree.png)
@@ -91,7 +91,47 @@ DDSEditor\Strings\English\dds.blocks -> CaseEditor\DDSContent\Strings\English\DD
 
 What's going on at this point? We have a file that refers to the DDS we have created and define some basic additional attributes for the evidence that will spawn in the world. The enum should be translated by the case editor tool where printsSource 12 is the killer's prints. We have a placeholder for the evidence file (KillerNotesEvidence) that will be opened in the evidence board. Everything else will be copied from the vanilla Note preset unless overridden.
 
+### Create the EvidencePreset file for the evidence to appear in case board
+1. In the [case editor tool](https://www.piepieonline.com/ShadowsOfDoubt-CaseEditor/) click Add new file.
+2. Select EvidencePreset from the dropdown for File Type, and CrumpledPaper for the Copy From, name your file. Name this file `KillerNotesEvidence`
 
+> Tip: Again, It's important to keep track of your file names and which evidence they tie to. Name your files appropriately! 
+
+3. Just like for the interactablePreset, edit the file again directly and paste this as the json for simplicity.
+
+```
+{
+  "name": "KillerNotesEvidence",
+  "fileType": "EvidencePreset",
+  "copyFrom": "EvidencePreset|CrumpledNameCipher",
+  "presetName": "KillerNotesEvidence",
+  "ddsDocumentID": "2007b0c9-ed2b-487c-99a8-152a0ba19977
+}
+```
+5. Just like in the InteractablePreset file, make sure the ddsDocumentID is the one from the DDS Editor.
+
+### Prepare the MurderMO file to use the custom evidence
+1. In the [case editor tool](https://www.piepieonline.com/ShadowsOfDoubt-CaseEditor/) open the murderMO file that is created by default. 
+2. Right click on "MOleads" to add a new entry, then expand the tree.
+
+![](/assets/image/Editor_expandMO.png)
+
+* Refer to the MurderMO file reference for details on what the fields do.
+3. For the example, enter the name `KillerNotes`and fill out the first few entries as follows
+
+|compatibleWithAllMotives|true|
+|spawnOnPhase|executing|
+|tryToSpawnWithEachNewMurder|true|
+|belongsTo|killer|
+|chance|1|
+
+4. On the spawnItem dropdown, click the entry for custom, and in the prompt that opens, enter `KillerNotesInteractable`
+
+![](/assets/image/Editor_completedMO.png)
+
+What's set up at this point? We have some basic spawning variables set for the evidence. Most importantly, we have called the custom KillerNoteInteractable file that we created, which will spawn in the world with the settings we applied. The object in the world when interacted with will now refer to the KillerNoteEvidence file we created, which in turn will display the DDS object we created in the editor.
+
+ 
 ## MurderMO file
 
 ## Murder Manifest file
