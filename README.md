@@ -29,7 +29,68 @@ What's happened so far? We have added 2 dynamic text blocks. Referring to the ci
 
 ![](/assets/image/Shadows_of_Doubt_DDS_Editor_completebasicdocument.png)
 
-*`Tip: you can explore available DDS text by simply entering the first pipe, going up and down with arrows and pressing enter to expand into the next context`*
+> Tip: you can explore available DDS text by simply entering the first pipe, going up and down with arrows and pressing enter to expand into the next context
+
+### Migrate your DDS data for the custom evidence
+
+The evidence DDS data is created but we need to move it into the folders that meet the structure for the case editor.
+
+1. Drill into your DDS Editor's save folder.
+
+`Shadows DDS Editor Build\Shadows of Doubt DDS Editor_Data\StreamingAssets\DDS\(YOUR BUNDLE)`
+
+2. Open the Case Editor's file folder. 
+
+`ExampleCase\DDSContent`
+
+3. Move files in directories as follows
+
+DDSEditor\Trees -> CaseEditor\DDSContent\DDS\Trees
+
+DDSEditor\Messsages -> CaseEditor\DDSContent\DDS\Messsages
+
+DDSEditor\Blocks -> CaseEditor\DDSContent\DDS\Blocks
+
+4. Move these files as follows
+
+DDSEditor\Strings\English\dds.blocks -> CaseEditor\DDSContent\Strings\English\DDS
+
+5. Create evidence.names in CaseEditor\DDSContent\Strings\English\Evidence
+6. Edit evidence.names and add a new row
+
+`KillerNotes,,"Note",,,,11:49 05/03/2025`
+> Note the time and date here does not appear to matter. The important entries are KillerNotes and "Note" 
+
+### Create InteractablePreset file for the evidence to spawn in the world
+1. In the [case editor tool](https://www.piepieonline.com/ShadowsOfDoubt-CaseEditor/) click Add new file.
+2. Select InteractablePreset from the dropdown for File Type, and CrumpledPaper for the Copy From, name your file. Name this file `KillerNotesInteractable`
+
+> Tip: It's important to keep track of your file names and which evidence they tie to. Name your files appropriately! 
+
+3. For simplicity sake in this guide, edit the file directly first and paste this in as the json.
+
+```
+{
+  "name": "KillerNotesInteractable",
+  "fileType": "InteractablePreset",
+  "copyFrom": "InteractablePreset|Note",
+  "presetName": "KillerNotesInteractable",
+  "spawnEvidence": "REF:EvidencePreset|KillerNotesEvidence",
+  "fingerprintsEnabled": true,
+  "printsSource": 12,
+  "summaryMessageSource": "2007b0c9-ed2b-487c-99a8-152a0ba19977",
+  "fingerprintDensity": 4
+}
+```
+4. Go back to the case editor tool and open the file. 
+5. Refer to your DDS Editor again for the GUID for the evidence in the top right of the window, and copy this value.
+
+![](/assets/image/Shadows_of_Doubt_DDS_Editor_guidpointer.png)
+
+6. Paste the value into the summaryMessageSource field in the case editor.
+
+What's going on at this point? We have a file that refers to the DDS we have created and define some basic additional attributes for the evidence that will spawn in the world. The enum should be translated by the case editor tool where printsSource 12 is the killer's prints. We have a placeholder for the evidence file (KillerNotesEvidence) that will be opened in the evidence board. Everything else will be copied from the vanilla Note preset unless overridden.
+
 
 ## MurderMO file
 
