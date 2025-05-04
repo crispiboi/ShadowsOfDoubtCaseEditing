@@ -138,6 +138,7 @@ What's set up at this point? We have some basic spawning variables set for the e
 In the DDS Edtitor tool, create a new `Misc` Tree. On the right select "Never" for Trigger On.
 
 Click the top right button on the message to begin editing. 
+
 ![](assets/image/Shadows_of_Doubt_DDS_Editor_EditMessage.png)
 
 Each block in the message is a unique individual moniker that the game can select. Ideally you want to include 3-4 of these for variety and in Noir spirit, alliteration is the most common style. Click done at the bottom to save. 
@@ -147,21 +148,25 @@ Each block in the message is a unique individual moniker that the game can selec
 In the DDS Editor tool, create a new `vMail Thread` tree. 
 
 Click the top right button on the message to begin editing. 
+
 ![](assets/image/Shadows_of_Doubt_DDS_Editor_EditMessage.png)
 
 The first block is always the subject of the vMail, and is shorter than one might expect. Only about 30 characters are displayed. 
 
 Any number of additional blocks can be added with custom scopes of DDS being used. Click done at the bottom to save it.
+
 ![](assets/image/Shadows_of_Doubt_DDS_Editor_vmailExample.png)
 In this example message we have included the name of the person receiving the message, and some clues about the appearance of the murderer based off their friend's witness of them. Note all of these values are defined by the game and can be referenced to create a story. In the game's reality the victim's friend may not have actually witnessed the killer lurking about. 
 
 > Tip: you can explore available DDS text by simply entering the first pipe, going up and down with arrows and pressing enter to expand into the next context. 
 
 In the DDS Editor take note of the letters on top of the message indicating the participants of the thread. We must also check the participants off on the right hand side. Which will then open the editor window of the connection, select friend on the dropdown.
-![](assets/imaage/Shadows_of_Doubt_DDS_Editor_selectConnection.png)
+
+![](assets/image/Shadows_of_Doubt_DDS_Editor_selectConnection.png)
 ![](assets/image/Shadows_of_Doubt_DDS_Editor_vmailConnectionWindow.png)
 
 Next on the tree viewer, change the dropdowns for the letters on top of the message, this changes the sender and receiver of the message. We are changing it to Participant B, the friend, sending to Participant A, the victim.
+
 ![](assets/iamge/Shadows_of_Doubt_DDS_Editor_vMailDirection.png) 
 
 The last thing to do here is make sure to change Trigger On to `Never` Otherwise this vMail will be used randomly for other citizens in the city.
@@ -212,6 +217,9 @@ Right click to add new keys, these are the clues you can provide to the player t
 |chance|value from 0 to 1 indicating the percent chance the evidence is spawned. 0.5 is half of the time.|
 |itemTag|to be safe, set a unique tag for each piece of evidence unless working on advanced logic.|
 
+##### Trait modifiers
+Just like controlling the traits of the victim and murderer, evidence can be used based on the traits of *only* the murderer. Simply add any number of keys by right clicking and make sure `useTraits` is `true`. 
+
 ##### MOLeads for Physical Evidence
 The main fields to modify for Physical evidence will determine whose prints appear on the object, what it is, and where it spawns.
 |field|notes|
@@ -235,7 +243,37 @@ In our example Participant B is writing the vMail to Participant A, who is the v
 |where|probably optional, set to `victimHome` to be safe.|
 
 
+##### Other MOleads fields
+There are a number of fields related to tags, if, or, groups, and chance. These will be discussed as much as I understand them but more experimentation is required.
 
+###### IF Logic
+|field|notes|
+|---|---|
+|useIf| `true` or `false` controls additively using more evidence if a prior one is utilized. When set to true, the evidence will only spawn if a piece of evidence with the ifTag is spawned.|
+|ifTag|controls which evidence tag is used for conditionally adding more evidence|
+
+When working with `if`, consider we have a lower chance piece of evidence spawning, and it only makes sense to spawn this second piece if the first exists. Maybe there is a threatening letter written to the victim, and they may write their own response or diary based on this. 
+* In that case the threatening letter would be `itemTag` `A` and the response would be `itemTag` `B`. 
+* So on the MOlead item for the threatening note `itemTag` is `A`, no `ifTag` would be used, and `useIf` would be set to `false`.
+* On the MOlead item for the response `itemTag` is `B`, `useIf` is `true` and `ifTag` is set to `A`
+
+###### OR Logic
+|field|notes|
+|---|---|
+|useOrGroup|`true` or `false` controls using or logic to conditionally spawn evidence|
+|orGroup| defines the itemTag(s) used for conditionally spawning evience|
+|chanceRatio| probably controls the chance of one item spawning versus the other, in experiments setting to 1 seems to cause no issue.|
+
+When working with `or`, consider we have a couple variants of evidence we want to spawn, maybe each with a different clue on the description of the murderer. Maybe `itemTag` `A` tells the killer's home building, or `itemTag` `A` tells the killers work building. We do not want to give the player too much information so we want to spawn just one or the other. 
+
+* In this case, the home building note and the work building note have the same `itemTag` of `A`
+* both pieces have `orGroup` set to `A`, and `useOrGroup` is set to `true`
+
+###### Additional logic (Security, ownership)
+|field|notes|
+|---|---|
+|security|only applies to physical evidence and can control the level of security in which a object spawns. For example `0` is anywhere in the open, `1` is atleast in a drawer, `2` is in a safe. This is all relative to the furniture in the room in which the object is spawning. If no safe exists, a drawer may be consider the highest level of security.|
+|ownershipRule| *tbd* seems to control where/who the room must be owned by to spawn. The safest option here is `both`|
 
 ## Murder Manifest file
 
