@@ -143,6 +143,31 @@ Click the top right button on the message to begin editing.
 Each block in the message is a unique individual moniker that the game can select. Ideally you want to include 3-4 of these for variety and in Noir spirit, alliteration is the most common style. Click done at the bottom to save. 
 ![](/assets/image/Shadows_of_Doubt_DDS_Editor_monikerExample.png)
 
+### Define a custom vMail DDS clue
+In the DDS Editor tool, create a new `vMail Thread` tree. 
+
+Click the top right button on the message to begin editing. 
+![](assets/image/Shadows_of_Doubt_DDS_Editor_EditMessage.png)
+
+The first block is always the subject of the vMail, and is shorter than one might expect. Only about 30 characters are displayed. 
+
+Any number of additional blocks can be added with custom scopes of DDS being used. Click done at the bottom to save it.
+![](assets/image/Shadows_of_Doubt_DDS_Editor_vmailExample.png)
+In this example message we have included the name of the person receiving the message, and some clues about the appearance of the murderer based off their friend's witness of them. Note all of these values are defined by the game and can be referenced to create a story. In the game's reality the victim's friend may not have actually witnessed the killer lurking about. 
+
+> Tip: you can explore available DDS text by simply entering the first pipe, going up and down with arrows and pressing enter to expand into the next context. 
+
+In the DDS Editor take note of the letters on top of the message indicating the participants of the thread. We must also check the participants off on the right hand side. Which will then open the editor window of the connection, select friend on the dropdown.
+![](assets/imaage/Shadows_of_Doubt_DDS_Editor_selectConnection.png)
+![](assets/image/Shadows_of_Doubt_DDS_Editor_vmailConnectionWindow.png)
+
+Next on the tree viewer, change the dropdowns for the letters on top of the message, this changes the sender and receiver of the message. We are changing it to Participant B, the friend, sending to Participant A, the victim.
+![](assets/iamge/Shadows_of_Doubt_DDS_Editor_vMailDirection.png) 
+
+The last thing to do here is make sure to change Trigger On to `Never` Otherwise this vMail will be used randomly for other citizens in the city.
+
+Next steps for using this can be found in the MurderMO file MOLeads for vMail Evidence section. 
+
 
 ## MurderMO file
 
@@ -170,7 +195,7 @@ The weapon pool key and locations are also self explanatory. You can select any 
 | allowDen| murder will happen in the Kidnappers den, currently untested by community. Likely tied to the count down for kidnapper cases.|
 
 #### Victim boost modifiers
-The keys can be positive or negative and will influence how much more likely the victim is tied to the killer in a given schema. All of these key names are very self explanatory.
+The keys can be positive or negative and will influence how much more likely the victim is tied to the killer in a given schema. All of these key names are self explanatory.
 
 #### monkierDDSMessageList
 This field influences what is selected as the case name in game like "The Scarlet Slicer". This field is slightly misspelled so ensure you do not correct it if editing in a text editor. This appears in the player's caseboard as well as newspaper articles. This must be defined in a DDS file. The GUID for the tree must be entered into this field. This is optional and the game will select from a list of vanilla monikers if not defined.
@@ -184,7 +209,8 @@ Right click to add new keys, these are the clues you can provide to the player t
 |---|---|
 |name|not visible to player, used to keep track or notes of what the object is.|
 |spawnOnPhase| the point in the murder's progression where the lead is created. Usually `research` or `executing`|
-|chance|value from 0 to 1 indicating the percent chance the evidence is spawned. 0.5 is half of the time.
+|chance|value from 0 to 1 indicating the percent chance the evidence is spawned. 0.5 is half of the time.|
+|itemTag|to be safe, set a unique tag for each piece of evidence unless working on advanced logic.|
 
 ##### MOLeads for Physical Evidence
 The main fields to modify for Physical evidence will determine whose prints appear on the object, what it is, and where it spawns.
@@ -194,8 +220,21 @@ The main fields to modify for Physical evidence will determine whose prints appe
 |spawnItem|the actual physical object spawned in the world. Example for custom evidence uses a custom name, but literally anything can be selected in here within reason.|
 |where|the place the object will be spawned both killer and victim home and work|
 
-#### MOLeads for vMail Evidence
-This can be tricky to get right and a few of the fields relate to the scope from the DDS Editor.
+##### MOLeads for vMail Evidence
+This can be tricky to get right and a few of the fields relate to the scope from the DDS Editor. We will use the vMail evidence example from this guide to continue working on the vMail section. Consider the directionality logic of writer and receiver as well as the participants from the vMail evidence.
+
+In our example Participant B is writing the vMail to Participant A, who is the victim. 
+![](assets/image/Editor_vMailSetup.png)
+
+|field|notes|
+|---|---|
+|vmailThread|GUID value from the top right of the DDS Editor for the tree.|
+|writer|the person writing the vMail|
+|receiver|the person receiving the vMail|
+|vMailOtherParticipants|optional, advanced for multithreaded or multiparticipant vMails.|
+|where|probably optional, set to `victimHome` to be safe.|
+
+
 
 
 ## Murder Manifest file
