@@ -192,7 +192,7 @@ This key is important to apply the Murder Preset so the game knows how to script
 The weapon pool key and locations are also self explanatory. You can select any number of weapons to be used as a murder weapon like Blades or Guns. 
 | allow murder locations| notes|
 | --- | ---| 
-| allowAnywhere| murder will literally anywhere, this may override all other options|
+| allowAnywhere| murder will be literally anywhere, this may override all other options|
 | allowHome| murder will be at the victim's home|
 | allowWork| murder will be at the victim's workplace|
 | allowPublic| murder can happen in public, like in the front of a restaurant or building lobby|
@@ -272,9 +272,55 @@ When working with `or`, consider we have a couple variants of evidence we want t
 ###### Additional logic (Security, ownership)
 |field|notes|
 |---|---|
-|security|only applies to physical evidence and can control the level of security in which a object spawns. For example `0` is anywhere in the open, `1` is atleast in a drawer, `2` is in a safe. This is all relative to the furniture in the room in which the object is spawning. If no safe exists, a drawer may be consider the highest level of security.|
+|security|only applies to physical evidence and can control the level of security in which a object spawns. For example `0` is anywhere in the open, `1` is atleast in a drawer, `2` is in a safe. This is all relative to the furniture in the room in which the object is spawning. If no safe exists, a drawer may be considered the highest level of security.|
 |ownershipRule| *tbd* seems to control where/who the room must be owned by to spawn. The safest option here is `both`|
 
 ## Murder Manifest file
 
 ## Interactable Preset file
+
+## Advanced Evidence Setup
+It is possible to reveal a specific information on evidence through customizing the Evidence file. For example in this situation where the murderer has a small note with their victim's home and just a photo of the victim.
+
+![](assets/image/Shadows_of_Doubt_DDS_Editor_customConcealedEvidence.png)
+
+For this certain example to work, we set it up as the victim as the "writer" of the document. This allows us to get their address and photo. The message block for the `<Error>` tag is `|writer.home.building|`, and simply has a display error on the editor. The element added is "Photo". 
+
+We then add some overrides to the Evidence file on the case editor for `factSetup`. We give the preset `PhotoOf` and `LivesAtBuilding` a link to the `writer`, who in our case is going to be the victim. We'll also give it a `FoundAt` preset with a link to `interactableLocation`, which will be the place in the game world where the evidence spawns.
+
+![](assets/image/Editor_AdvancedEvidenceLinks.png)
+
+Next we'll add overrides for `keyMergeOnDiscover` to link `writer` and merge keys `photo` and `livesInBuilding`. 
+
+![](assets/images/Editor_Advanced_keyMerge.png)
+
+Then we have to add overrides and keys for `addFactLnks` for the same things, `subject` as `writer` and the facts `photo` and `LivesAtBuilding` `name`. 
+
+![](assets/image/Editor_Advanced_factLinks.png)
+
+We'll also want to add overrides for `UseInGamePhoto` and `useWriter` to be `true`. 
+
+With the Evidence file set up, we can refer to it in the MurderMO file thinking through logically, that this evidence will be written from, and belong to the victim. In order to tie it to the killer, we have to place it at `killerHome` so it appears as though the killer had this object to confirm they got the right person.
+
+![](assets/image/Editor_Advanced_AssociatetoMO.png)
+
+
+When this is all properly set up and the player examines the evidence in game, it will give some links with just the person's photo and the building they live in.
+
+![](assets/image/InGameConnectionExample.png)
+
+
+## General Case Design Tips
+* Craft a story. Think about:
+  *  Why does the murderer kill?
+  *  Do they want people to know why they kill or is it personal to them? 
+  *  How do they choose their victims? 
+  *  Do they taunt and warn their victims? 
+  *  Do they try to appear as a potential victim instead to throw off the case?
+  *  Do they have some kind of memento unique to their killing purpose?
+* Start simple. Make sure your case loads without evidence first, then make sure the murderer will kill, and then add in evidence. 
+* Too hard is not always fun, make sure you are leaving clues at the crime scene that are breadcrumbs. The vanilla game will help you by leaving fingerprints and shoe prints but these are not much to go on.
+* Too easy is also not fun, make sure you are not leaving too many clues at the crime scene. 
+> Tip: fun is subjective, some folks enjoy a challenge, other just want to enjoy the story!
+* vMail is a much easier evidence type to add.
+* Custom physical evidence always requires 2 files and can be challenging to get correct at first. It is also the most powerful and immersive. 
