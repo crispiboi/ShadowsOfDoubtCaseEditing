@@ -134,8 +134,69 @@ What's going on at this point? We have a file that refers to the DDS we have cre
 
 What's set up at this point? We have some basic spawning variables set for the evidence. Most importantly, we have called the custom KillerNoteInteractable file that we created, which will spawn in the world with the settings we applied. The object in the world when interacted with will now refer to the KillerNoteEvidence file we created, which in turn will display the DDS object we created in the editor.
 
- 
+### Define a killer Moniker DDS list
+In the DDS Edtitor tool, create a new `Misc` Tree. On the right select "Never" for Trigger On.
+
+Click the top right button on the message to begin editing. 
+![](assets/image/Shadows_of_Doubt_DDS_Editor_EditMessage.png)
+
+Each block in the message is a unique individual moniker that the game can select. Ideally you want to include 3-4 of these for variety and in Noir spirit, alliteration is the most common style. Click done at the bottom to save. 
+![](/assets/image/Shadows_of_Doubt_DDS_Editor_monikerExample.png)
+
+
 ## MurderMO file
+
+### Overview of fields
+The MurderMO file will control everything about setting up the procedural murder from who the killer is, who the victim is, the murder location, clues, and more.
+
+#### Trait, Job, and Company modifiers
+These values are relatively self explanatory including tips in the case editor for what they do. These values are actually optional and if not defined, a random citizen will be chosen for the roles. Right click to add a node in any section to define keys for these. 
+
+![](assets/image/Editor_example_murderer_traits.png)
+In this example, we have a sadistic head chef at a fast food restaurant. This can be expanded with a number of notes under each. Again, these same traits can be selected in the victim section to be applied in the same way.
+
+#### compatibleWith
+This key is important to apply the Murder Preset so the game knows how to script the murderer's actions and methods. Nearly always this must be set to `SerialKiller`. It may be possible through experimentation to apply other methodologies including the Kidnapper case.
+
+#### Weapon pool and allow location modifiers
+The weapon pool key and locations are also self explanatory. You can select any number of weapons to be used as a murder weapon like Blades or Guns. 
+| allow murder locations| notes|
+| --- | ---| 
+| allowAnywhere| murder will literally anywhere, this may override all other options|
+| allowHome| murder will be at the victim's home|
+| allowWork| murder will be at the victim's workplace|
+| allowPublic| murder can happen in public, like in the front of a restaurant or building lobby|
+| allowStreets| murder can happen on the streets|
+| allowDen| murder will happen in the Kidnappers den, currently untested by community. Likely tied to the count down for kidnapper cases.|
+
+#### Victim boost modifiers
+The keys can be positive or negative and will influence how much more likely the victim is tied to the killer in a given schema. All of these key names are very self explanatory.
+
+#### monkierDDSMessageList
+This field influences what is selected as the case name in game like "The Scarlet Slicer". This field is slightly misspelled so ensure you do not correct it if editing in a text editor. This appears in the player's caseboard as well as newspaper articles. This must be defined in a DDS file. The GUID for the tree must be entered into this field. This is optional and the game will select from a list of vanilla monikers if not defined.
+
+#### confessionalDDSResponses
+*tbd*
+
+#### MOleads
+Right click to add new keys, these are the clues you can provide to the player through custom evidence to regular in game objects. Leads can also be vMail threads defined in the DDS Editor. Some fields are applicable physical evidence or vMails and are optional. All MOleads require a name, a spawnOnPhase value and chance value to work. 
+|field|notes|
+|---|---|
+|name|not visible to player, used to keep track or notes of what the object is.|
+|spawnOnPhase| the point in the murder's progression where the lead is created. Usually `research` or `executing`|
+|chance|value from 0 to 1 indicating the percent chance the evidence is spawned. 0.5 is half of the time.
+
+##### MOLeads for Physical Evidence
+The main fields to modify for Physical evidence will determine whose prints appear on the object, what it is, and where it spawns.
+|field|notes|
+|---|---|
+|belongsTo|usually `killer` or `victim` but cases can use a number of values in the dropdown here to make a story.|
+|spawnItem|the actual physical object spawned in the world. Example for custom evidence uses a custom name, but literally anything can be selected in here within reason.|
+|where|the place the object will be spawned both killer and victim home and work|
+
+#### MOLeads for vMail Evidence
+This can be tricky to get right and a few of the fields relate to the scope from the DDS Editor.
+
 
 ## Murder Manifest file
 
