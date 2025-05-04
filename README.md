@@ -279,7 +279,7 @@ When working with `or`, consider we have a couple variants of evidence we want t
 
 ## Interactable Preset file
 
-## Advanced Evidencec Setup
+## Advanced Evidence Setup
 It is possible to reveal a specific information on evidence through customizing the Evidence file. For example in this situation where the murderer has a small note with their victim's home and just a photo of the victim.
 
 ![](assets/image/Shadows_of_Doubt_DDS_Editor_customConcealedEvidence.png)
@@ -308,6 +308,39 @@ With the Evidence file set up, we can refer to it in the MurderMO file thinking 
 When this is all properly set up and the player examines the evidence in game, it will give some links with just the person's photo and the building they live in.
 
 ![](assets/image/InGameConnectionExample.png)
+
+## Advanced Interactables Setup
+It is possible to control where and how interactables spawn in the game world through overrides on the Interactables file. 
+
+### Advanced Interactables spawning in containers
+The game's concept of `folder` includes the personal home files often found in cabinets, paper stacks, as well as trash bins are considered a folder.
+
+By overriding `attemptToStoreInFolder` and putting a value greater than 0 in `folderPlacementChance` and object can be spawned in these. Below are the few I have discovered but more may be possible. 
+
+|Notable folders in game|
+|----|
+|`HomeFile`|
+|`Paperstack`|
+|`Bin`|
+
+### Advanced Interactables spawn locations
+There are two overrides we can add `subObjectClasses` and `backupClasses` that directly control where objects can be spawned for instance in drawers, on desks, etc. Logically, backup classes must be used when the game is unable to spawn in the primary spot. There are likely others to be experimented with.
+
+|Notable ObjectClasses|Location|
+|---|----|
+|`DrawerItemGeneric`|In any drawer|
+|`Worklocker`|In citizen's work locker|
+|`TableTopItemGeneric`|On any tabletop|
+|`Junk`|In a junk location, anywhere|
+|`JunkFloor`|In a junk location on the floor|
+|`PinnedNote`|Pinboard, fridge, and on cabinets|
+|`SecretDiary`|Under the citizen's bed|
+|`CountertopItemKitchen`|On a kitchen countertop|
+|`FridgeItemLarge`|In the fridge on the main area of the fridge, not the door|
+|`DrawerItemKitchen`|In a kitchen drawer|
+|`DeskItemOffice`|On a desk in a office|
+|`VanityItem`|On a vanity in a bedroom.|
+|`ShelfItemGenric`|On any shelf|
 
 
 ## General Case Design Tips
