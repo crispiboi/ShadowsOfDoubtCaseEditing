@@ -119,6 +119,9 @@ What's going on at this point? We have a file that refers to the DDS we have cre
 * Refer to the MurderMO file reference for details on what the fields do.
 3. For the example, enter the name `KillerNotes`and fill out the first few entries as follows
 
+
+| field     | value       |
+| ------------- | ------------- |
 |compatibleWithAllMotives|true|
 |spawnOnPhase|executing|
 |tryToSpawnWithEachNewMurder|true|
