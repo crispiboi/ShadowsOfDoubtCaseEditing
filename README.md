@@ -279,20 +279,20 @@ When working with `or`, consider we have a couple variants of evidence we want t
 
 ## Interactable Preset file
 
-## Advanced Evidence Setup
+## Advanced Evidencec Setup
 It is possible to reveal a specific information on evidence through customizing the Evidence file. For example in this situation where the murderer has a small note with their victim's home and just a photo of the victim.
 
 ![](assets/image/Shadows_of_Doubt_DDS_Editor_customConcealedEvidence.png)
 
 For this certain example to work, we set it up as the victim as the "writer" of the document. This allows us to get their address and photo. The message block for the `<Error>` tag is `|writer.home.building|`, and simply has a display error on the editor. The element added is "Photo". 
 
-We then add some overrides to the Evidence file on the case editor for `factSetup`. We give the preset `PhotoOf` and `LivesAtBuilding` a link to the `writer`, who in our case is going to be the victim. We'll also give it a `FoundAt` preset with a link to `interactableLocation`, which will be the place in the game world where the evidence spawns.
+We then add some overrides to the Evidence file on the case editor for `factSetup`. We give the preset `PhotoOf` and `LivesAtBuilding` a link to the `writer`, who in our case is going to be the victim. We'll also give it a `FoundAt` preset with a link to `interactableLocation`, which will be the placed in the game world where the evidence spawns.
 
 ![](assets/image/Editor_AdvancedEvidenceLinks.png)
 
 Next we'll add overrides for `keyMergeOnDiscover` to link `writer` and merge keys `photo` and `livesInBuilding`. 
 
-![](assets/images/Editor_Advanced_keyMerge.png)
+![](assets/image/Editor_Advanced_keyMerge.png)
 
 Then we have to add overrides and keys for `addFactLnks` for the same things, `subject` as `writer` and the facts `photo` and `LivesAtBuilding` `name`. 
 
