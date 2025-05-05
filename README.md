@@ -1,5 +1,41 @@
 # Shadows Of Doubt Case Editing
 
+## Contents
+
+  - [Intro](#intro)
+  - [How to](#how-to)
+    - [Make a basic custom piece of DDS evidence](#make-a-basic-custom-piece-of-dds-evidence)
+    - [Migrate your DDS data for the custom evidence](#migrate-your-dds-data-for-the-custom-evidence)
+    - [Create InteractablePreset file for the evidence to spawn in the world](#create-interactablepreset-file-for-the-evidence-to-spawn-in-the-world)
+    - [Create the EvidencePreset file for the evidence to appear in case board](#create-the-evidencepreset-file-for-the-evidence-to-appear-in-case-board)
+    - [Prepare the MurderMO file to use the custom evidence](#prepare-the-murdermo-file-to-use-the-custom-evidence)
+    - [Define a killer Moniker DDS list](#define-a-killer-moniker-dds-list)
+    - [Define a custom vMail DDS clue](#define-a-custom-vmail-dds-clue)
+  - [MurderMO file](#murdermo-file)
+    - [Overview of fields](#overview-of-fields)
+      - [Trait, Job, and Company modifiers](#trait-job-and-company-modifiers)
+      - [compatibleWith](#compatiblewith)
+      - [Weapon pool and allow location modifiers](#weapon-pool-and-allow-location-modifiers)
+      - [Victim boost modifiers](#victim-boost-modifiers)
+      - [monkierDDSMessageList](#monkierddsmessagelist)
+      - [confessionalDDSResponses](#confessionalddsresponses)
+      - [MOleads](#moleads)
+        - [Trait modifiers](#trait-modifiers)
+        - [MOLeads for Physical Evidence](#moleads-for-physical-evidence)
+        - [MOLeads for vMail Evidence](#moleads-for-vmail-evidence)
+        - [Other MOleads fields](#other-moleads-fields)
+          - [IF Logic](#if-logic)
+          - [OR Logic](#or-logic)
+          - [Additional logic (Security, ownership)](#additional-logic-security-ownership)
+  - [Murder Manifest file](#murder-manifest-file)
+  - [Interactable Preset file](#interactable-preset-file)
+  - [Advanced Evidence Setup](#advanced-evidence-setup)
+  - [Advanced Interactables Setup](#advanced-interactables-setup)
+    - [Advanced Interactables spawning in containers](#advanced-interactables-spawning-in-containers)
+    - [Advanced Interactables spawn locations](#advanced-interactables-spawn-locations)
+  - [General Case Design Tips](#general-case-design-tips)
+
+
 ## Intro
 
 ### Case Editor Tool
@@ -26,6 +62,8 @@ This evidence will spawn in the world as a crumpled pieces of paper.
 ![](/assets/image/Shadows_of_Doubt_DDS_Editor_dynamicCityandVictim.png)
 
 What's happened so far? We have added 2 dynamic text blocks. Referring to the city and the killer's next victim's full name. 
+
+> Note that the killer scope is dynamic and will shift as new murders occur. To avoid this behavior you will want to use the writer and receiver scopes covered later in this guide.
 
 ![](/assets/image/Shadows_of_Doubt_DDS_Editor_completebasicdocument.png)
 
@@ -58,7 +96,7 @@ DDSEditor\Strings\English\dds.blocks -> CaseEditor\DDSContent\Strings\English\DD
 5. Create evidence.names in CaseEditor\DDSContent\Strings\English\Evidence
 6. Edit evidence.names and add a new row
 
-`KillerNotes,,"Note",,,,11:49 05/03/2025`
+`KillerNotesEvidence,,"Note",,,,11:49 05/03/2025`
 > Note the time and date here does not appear to matter. The important entries are KillerNotes and "Note" 
 
 ### Create InteractablePreset file for the evidence to spawn in the world
