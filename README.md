@@ -63,7 +63,7 @@ This evidence will spawn in the world as a crumpled pieces of paper.
 
 What's happened so far? We have added 2 dynamic text blocks. Referring to the city and the killer's next victim's full name. 
 
-> Note that the killer scope is dynamic and will shift as new murders occur. To avoid this behavior you will want to use the writer and receiver scopes covered later in this guide.
+> Note that the killer scope is dynamic and will shift as new murders occur. To avoid this behavior you will want to use the writer and receiver scopes [covered later in this guide](#advanced-evidence-setup).
 
 ![](/assets/image/Shadows_of_Doubt_DDS_Editor_completebasicdocument.png)
 
@@ -97,7 +97,7 @@ DDSEditor\Strings\English\dds.blocks -> CaseEditor\DDSContent\Strings\English\DD
 6. Edit evidence.names and add a new row
 
 `KillerNotesEvidence,,"Note",,,,11:49 05/03/2025`
-> Note the time and date here does not appear to matter. The important entries are KillerNotes and "Note" 
+> Note the time and date here does not appear to matter. The important entries are KillerNotesEvidence and "Note" 
 
 ### Create InteractablePreset file for the evidence to spawn in the world
 1. In the [case editor tool](https://www.piepieonline.com/ShadowsOfDoubt-CaseEditor/) click Add new file.
@@ -154,7 +154,7 @@ What's going on at this point? We have a file that refers to the DDS we have cre
 
 ![](/assets/image/Editor_expandMO.png)
 
-* Refer to the MurderMO file reference for details on what the fields do.
+* Refer to the [MurderMO file](#murdermo-file) reference for details on what the fields do.
 3. For the example, enter the name `KillerNotes`and fill out the first few entries as follows
 
 
@@ -355,11 +355,11 @@ The game's concept of `folder` includes the personal home files often found in c
 
 By overriding `attemptToStoreInFolder` and putting a value greater than 0 in `folderPlacementChance` and object can be spawned in these. Below are the few I have discovered but more may be possible. 
 
-|Notable folders in game|
-|----|
-|`HomeFile`|
-|`Paperstack`|
-|`Bin`|
+|Notable folders in game| information|
+|----| ---|
+|`HomeFile`|The home filing bin usually in a cabinet|
+|`Paperstack`|Papers stacks found on desks and in drawers|
+|`Bin`|Trash bins|
 
 ### Advanced Interactables spawn locations
 There are two overrides we can add `subObjectClasses` and `backupClasses` that directly control where objects can be spawned for instance in drawers, on desks, etc. Logically, backup classes must be used when the game is unable to spawn in the primary spot. There are likely others to be experimented with.
