@@ -228,6 +228,8 @@ This key is important to apply the Murder Preset so the game knows how to script
 
 #### Weapon pool and allow location modifiers
 The weapon pool key and locations are also self explanatory. You can select any number of weapons to be used as a murder weapon like Blades or Guns. 
+* Atleast one weapon pool must be defined or the murderer will never kill.
+
 | allow murder locations| notes|
 | --- | ---| 
 | allowAnywhere| murder will be literally anywhere, this may override all other options|
